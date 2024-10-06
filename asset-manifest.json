@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/nilesh_portfolio/static/css/main.797c4976.css",
-    "main.js": "/nilesh_portfolio/static/js/main.ad48bcf4.js",
+    "main.js": "/nilesh_portfolio/static/js/main.5292731a.js",
     "static/js/453.6da81e3b.chunk.js": "/nilesh_portfolio/static/js/453.6da81e3b.chunk.js",
     "static/media/PVDiagnostics.png": "/nilesh_portfolio/static/media/PVDiagnostics.82b3915275ea739986ab.png",
     "static/media/Reblding.png": "/nilesh_portfolio/static/media/Reblding.a3ecf03dea613db87918.png",
@@ -14,11 +14,11 @@
     "static/media/bedrock.svg": "/nilesh_portfolio/static/media/bedrock.343afd8fedcacec0cedb32e63aa43020.svg",
     "index.html": "/nilesh_portfolio/index.html",
     "main.797c4976.css.map": "/nilesh_portfolio/static/css/main.797c4976.css.map",
-    "main.ad48bcf4.js.map": "/nilesh_portfolio/static/js/main.ad48bcf4.js.map",
+    "main.5292731a.js.map": "/nilesh_portfolio/static/js/main.5292731a.js.map",
     "453.6da81e3b.chunk.js.map": "/nilesh_portfolio/static/js/453.6da81e3b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.797c4976.css",
-    "static/js/main.ad48bcf4.js"
+    "static/js/main.5292731a.js"
   ]
 }
