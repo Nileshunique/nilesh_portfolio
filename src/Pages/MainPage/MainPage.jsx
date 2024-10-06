@@ -8,7 +8,6 @@ import PortfolioGrid from "../../Components/Portfolio/Portfolio";
 function MainPage() {
   return (
     <div className="overflow-y-auto scroll-smooth">
-      <Header />
       <DevInfo />
       <About />
       <Experience />

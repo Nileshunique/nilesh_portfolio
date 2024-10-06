@@ -63,7 +63,10 @@ const Links = ({ onClick }) => {
       </li>
       <li>
         <div
-          onClick={() => handleClick("Portfolio")}
+          onClick={() => {
+            navigate("/portfolio");
+            // handleClick("Portfolio");
+          }}
           className="hover:text-yellow-500 hover:underline cursor-pointer"
         >
           Portfolio
