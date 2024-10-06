@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "./../../assets/images/nkLogo.png";
 import { scrollToSection } from "../../utils";
-import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,8 +39,6 @@ function Header() {
 export default Header;
 
 const Links = ({ onClick }) => {
-  const navigate = useNavigate();
-
   const handleClick = (id) => {
     scrollToSection(id);
     onClick();
@@ -66,10 +63,7 @@ const Links = ({ onClick }) => {
       </li>
       <li>
         <div
-          onClick={() => {
-            navigate("/portfolio");
-            // handleClick("Portfolio");
-          }}
+          onClick={() => handleClick("Portfolio")}
           className="hover:text-yellow-500 hover:underline cursor-pointer"
         >
           Portfolio
