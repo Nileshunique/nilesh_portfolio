@@ -41,7 +41,7 @@ function About() {
               className={`cursor-pointer bg-neutral-900 hover:bg-neutral-700 p-4 rounded-lg flex flex-col items-center justify-center border border-solid border-neutral-700 transition-transform hover:scale-105`}
             >
               <div className={`text-4xl mb-2 ${skill.color} rounded-full p-2`}>
-                {skill.type == "image" ? (
+                {skill.type === "image" ? (
                   <img src={skill.icon} alt={skill.name} className="h-6" />
                 ) : (
                   skill.icon
