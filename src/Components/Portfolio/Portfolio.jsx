@@ -4,6 +4,7 @@ import Heartbeat_Design from "./../../assets/images/projects/Heartbeat_Design.pn
 import PVDiagnostics from "./../../assets/images/projects/PVDiagnostics.png";
 import Reblding from "./../../assets/images/projects/Reblding.png";
 import Kaboodle from "./../../assets/images/projects/Kaboodle.png";
+import story_lego from "./../../assets/images/projects/story_lego.jpeg";
 import Heading from "../../SharedComponent/Heading/Heading";
 import { handleNavigate } from "../../utils";
 
@@ -84,6 +85,29 @@ const ProjectImageDetail = (props) => {
 };
 
 const portfolioItems = [
+  {
+    image: story_lego,
+    alt: "Chatwell AI Dashboard",
+    title: "ChatWell AI",
+    description:
+      "This project works to record the thought and transcribe it. Then all thoughts within a login session combine together and generate a story in text and audio format.",
+    action: "See More",
+    link: "https://app.writeoutloud.app/",
+    projectData: {
+      name: "Chatwell AI",
+      tech: [
+        "ReactJS", "Redux Toolkit", "Tailwind", "Django", "Postgres", "OpenAI"
+      ],
+      description:
+        "This project works to record the thought and transcribe it. Then all thoughts within a login session combine together and generate a story in text and audio format.",
+      responsibilities: [
+        "Create UI for all pages and REST API integration",
+        "Record audio and send it to backend to transcribe it",
+        "play recorded audio and Edit transcript data of the same audio",
+        "Export PDF of the generated stories and download the audio for the same story",
+      ],
+    },
+  },
   {
     image: Kaboodle,
     alt: "Kaboodle Dashboard",
