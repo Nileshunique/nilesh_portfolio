@@ -1,11 +1,12 @@
 {
   "files": {
     "main.css": "/nilesh_portfolio/static/css/main.797c4976.css",
-    "main.js": "/nilesh_portfolio/static/js/main.f49f9d24.js",
+    "main.js": "/nilesh_portfolio/static/js/main.b3d9eb63.js",
     "static/js/453.6da81e3b.chunk.js": "/nilesh_portfolio/static/js/453.6da81e3b.chunk.js",
     "static/media/PVDiagnostics.png": "/nilesh_portfolio/static/media/PVDiagnostics.82b3915275ea739986ab.png",
     "static/media/Reblding.png": "/nilesh_portfolio/static/media/Reblding.a3ecf03dea613db87918.png",
     "static/media/profile-small.png": "/nilesh_portfolio/static/media/profile-small.f68ff1f784176d0901e6.png",
+    "static/media/story_lego.jpeg": "/nilesh_portfolio/static/media/story_lego.162cafdee36f90070c9a.jpeg",
     "static/media/nkLogo.png": "/nilesh_portfolio/static/media/nkLogo.27ff12e8b0e70e18d61e.png",
     "static/media/apaapi_logo.png": "/nilesh_portfolio/static/media/apaapi_logo.bcad1e7662dcf21e3dfb.png",
     "static/media/Heartbeat_Design.png": "/nilesh_portfolio/static/media/Heartbeat_Design.b892d74a99a94000e28b.png",
@@ -14,11 +15,11 @@
     "static/media/bedrock.svg": "/nilesh_portfolio/static/media/bedrock.343afd8fedcacec0cedb32e63aa43020.svg",
     "index.html": "/nilesh_portfolio/index.html",
     "main.797c4976.css.map": "/nilesh_portfolio/static/css/main.797c4976.css.map",
-    "main.f49f9d24.js.map": "/nilesh_portfolio/static/js/main.f49f9d24.js.map",
+    "main.b3d9eb63.js.map": "/nilesh_portfolio/static/js/main.b3d9eb63.js.map",
     "453.6da81e3b.chunk.js.map": "/nilesh_portfolio/static/js/453.6da81e3b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.797c4976.css",
-    "static/js/main.f49f9d24.js"
+    "static/js/main.b3d9eb63.js"
   ]
 }
