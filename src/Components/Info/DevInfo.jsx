@@ -52,7 +52,7 @@ function DevInfo() {
               <FaPhoneAlt className="text-gray-400 hover:text-white cursor-pointer" />
             </div>
             <Link
-              to={"https://wa.me/9911148122"}
+              to={"https://wa.me/+919911148122"}
               target="_blank"
               className="text-[1.65rem]"
             >

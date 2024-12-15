@@ -80,7 +80,7 @@ const Links = ({ onClick }) => {
       <li>
         <a
           className="hover:text-yellow-500 hover:underline cursor-pointer"
-          href="https://docs.google.com/document/d/1rKLQPz_TwMGE6ytZ0YT8yHyPspKbxzI080DxeZVKHh0/edit?usp=sharing"
+          href="https://drive.google.com/file/d/1DwywbIW06HbUOURZD4IgedkJkMEHK9E6/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
         >
