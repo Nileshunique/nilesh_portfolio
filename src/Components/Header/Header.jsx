@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "./../../assets/images/nkLogo.png";
 import { scrollToSection } from "../../utils";
+import resume from "./../../assets/Resume/Nilesh_Resume.pdf";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,10 +40,14 @@ function Header() {
 export default Header;
 
 const Links = ({ onClick }) => {
+
   const handleClick = (id) => {
     scrollToSection(id);
-    onClick();
+    if(onClick){
+      onClick();
+    }
   };
+
   return (
     <ul className="md:flex md:space-x-4 space-y-2 md:space-y-0">
       <li>
@@ -80,11 +85,21 @@ const Links = ({ onClick }) => {
       <li>
         <a
           className="hover:text-yellow-500 hover:underline cursor-pointer"
-          href="https://drive.google.com/file/d/1DwywbIW06HbUOURZD4IgedkJkMEHK9E6/view?usp=sharing"
+          href={resume}
           target="_blank"
           rel="noopener noreferrer"
         >
           Resume
+        </a>
+      </li>
+      <li>
+        <a
+          className="hover:text-yellow-500 hover:underline cursor-pointer"
+          href={"https://dev.to/gyantocode/"}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Blogs
         </a>
       </li>
     </ul>
