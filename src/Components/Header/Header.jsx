@@ -102,7 +102,7 @@ const Links = ({ onClick }) => {
         >
           Blogs
         </a> */}
-        <Link to="/blog" className="hover:text-yellow-500 hover:underline cursor-pointer">Blogs</Link>
+        <Link to="/blogs" className="hover:text-yellow-500 hover:underline cursor-pointer">Blogs</Link>
       </li>
     </ul>
   );
