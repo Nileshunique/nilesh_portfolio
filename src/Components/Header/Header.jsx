@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import Logo from "./../../assets/images/nkLogo.png";
 import { scrollToSection } from "../../utils";
 import resume from "./../../assets/Resume/Nilesh_Resume.pdf";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -93,14 +94,15 @@ const Links = ({ onClick }) => {
         </a>
       </li>
       <li>
-        <a
+        {/* <a
           className="hover:text-yellow-500 hover:underline cursor-pointer"
           href={"https://dev.to/gyantocode/"}
           target="_blank"
           rel="noopener noreferrer"
         >
           Blogs
-        </a>
+        </a> */}
+        <Link to="/blog" className="hover:text-yellow-500 hover:underline cursor-pointer">Blogs</Link>
       </li>
     </ul>
   );
