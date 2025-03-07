@@ -94,15 +94,15 @@ const Links = ({ onClick }) => {
         </a>
       </li>
       <li>
-        {/* <a
+        <a
           className="hover:text-yellow-500 hover:underline cursor-pointer"
           href={"https://dev.to/gyantocode/"}
           target="_blank"
           rel="noopener noreferrer"
         >
           Blogs
-        </a> */}
-        <Link to="/blogs" className="hover:text-yellow-500 hover:underline cursor-pointer">Blogs</Link>
+        </a>
+        {/* <Link to="/blogs" className="hover:text-yellow-500 hover:underline cursor-pointer">Blogs</Link> */}
       </li>
     </ul>
   );
