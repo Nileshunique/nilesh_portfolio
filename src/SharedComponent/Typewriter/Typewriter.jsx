@@ -1,26 +1,31 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
-const Typewriter = ({ texts }) => {
+const Typewriter = ({
+  texts,
+  className,
+  delayBetweenTexts = 1000,
+  speed = 100,
+}) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
 
-  const TYPING_SPEED = 100;
-  const DELETING_SPEED = 50;
-  const PAUSE_BETWEEN_TEXTS = 1000;
+  const TYPING_SPEED = speed;
+  const DELETING_SPEED = speed / 2;
+  const PAUSE_BETWEEN_TEXTS = delayBetweenTexts;
 
   const typeText = useCallback(() => {
     const currentFullText = texts[currentTextIndex];
-    
+
     if (!isDeleting && displayText !== currentFullText) {
-      setDisplayText(prev => currentFullText.substring(0, prev.length + 1));
-    } else if (isDeleting && displayText !== '') {
-      setDisplayText(prev => prev.slice(0, -1));
-    } else if (isDeleting && displayText === '') {
+      setDisplayText((prev) => currentFullText.substring(0, prev.length + 1));
+    } else if (isDeleting && displayText !== "") {
+      setDisplayText((prev) => prev.slice(0, -1));
+    } else if (isDeleting && displayText === "") {
       setIsDeleting(false);
-      setCurrentTextIndex(prevIndex => (prevIndex + 1) % texts.length);
+      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
     } else {
       setTimeout(() => setIsDeleting(true), PAUSE_BETWEEN_TEXTS);
     }
@@ -35,25 +40,26 @@ const Typewriter = ({ texts }) => {
   }, [typeText, isDeleting]);
 
   useEffect(() => {
-    const cursorTimer = setTimeout(() => {
-      setShowCursor(prev => !prev);
-    }, showCursor ? 500 : 500);
+    const cursorTimer = setTimeout(
+      () => {
+        setShowCursor((prev) => !prev);
+      },
+      showCursor ? 500 : 500
+    );
     return () => clearTimeout(cursorTimer);
   }, [showCursor]);
 
   return (
     <div>
-      <p>
+      <p className={className}>
         {displayText}
-        <span>{showCursor ? '|' : '\u00A0'}</span>
+        <span>{showCursor ? "|" : "\u00A0"}</span>
       </p>
     </div>
   );
 };
 
 export default Typewriter;
-
-
 
 /*
 import { useState, useEffect } from "react";
