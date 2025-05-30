@@ -1,4 +1,6 @@
 import About from "../../Components/About/About";
+import DevToBlogFeed from "../../Components/Blogs/Blogs";
+import ContactForm from "../../Components/ContactUs/ContactForm";
 import ContactMe from "../../Components/ContactUs/ContactUs";
 import Experience from "../../Components/Experience/Experience";
 import Header from "../../Components/Header/Header";
@@ -12,6 +14,8 @@ function MainPage() {
       <About />
       <Experience />
       <PortfolioGrid />
+      <DevToBlogFeed />
+      {/* <ContactForm /> */}
       <ContactMe />
     </div>
   );
