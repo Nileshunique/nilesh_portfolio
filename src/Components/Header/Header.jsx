@@ -11,14 +11,14 @@ function Header() {
 
   return (
     <div className="mb-8 fixed top-0 right-0 left-0 !z-50">
-      <header className=" bg-neutral-800 w-full p-0 flex justify-between items-center">
+      <header className=" bg-neutral-800 d-block z-50 w-full p-0 flex justify-between items-center">
         <div
           onClick={() => scrollToSection("Home")}
           className="text-2xl font-bold text-yellow-500 py-2 px-4"
         >
           <img src={Logo} alt="logo" className="w-14 h-10 cursor-pointer" />
         </div>
-        <nav className="hidden md:block rounded-bl-full h-full bg-red-500/50 py-4 pl-20 pr-10">
+        <nav className="hidden md:block rounded-bl-full h-full bg-red-700 py-4 pl-20 pr-10">
           <Links />
         </nav>
         <button
@@ -41,10 +41,9 @@ function Header() {
 export default Header;
 
 const Links = ({ onClick }) => {
-
   const handleClick = (id) => {
     scrollToSection(id);
-    if(onClick){
+    if (onClick) {
       onClick();
     }
   };
@@ -77,6 +76,14 @@ const Links = ({ onClick }) => {
       </li>
       <li>
         <div
+          onClick={() => handleClick("Blogs")}
+          className="hover:text-yellow-500 hover:underline cursor-pointer"
+        >
+          Blogs
+        </div>
+      </li>
+      <li>
+        <div
           onClick={() => handleClick("ContactMe")}
           className="hover:text-yellow-500 hover:underline cursor-pointer"
         >
@@ -92,17 +99,6 @@ const Links = ({ onClick }) => {
         >
           Resume
         </a>
-      </li>
-      <li>
-        <a
-          className="hover:text-yellow-500 hover:underline cursor-pointer"
-          href={"https://dev.to/gyantocode/"}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Blogs
-        </a>
-        {/* <Link to="/blogs" className="hover:text-yellow-500 hover:underline cursor-pointer">Blogs</Link> */}
       </li>
     </ul>
   );
