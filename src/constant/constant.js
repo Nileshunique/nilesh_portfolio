@@ -18,10 +18,12 @@ import {
   SiMongodb,
   SiRedux,
   SiReacthookform,
+  SiJira,
+  SiLinear,
 } from "react-icons/si";
 import { BsGrid3X3Gap } from "react-icons/bs";
 import { BiLogoJquery } from "react-icons/bi";
-import { RiNextjsLine } from "react-icons/ri";
+import { RiNextjsLine, RiNotionFill } from "react-icons/ri";
 
 const profileName = "Nilesh Kumar";
 const typeWriterTexts = [
@@ -205,6 +207,30 @@ const skills = [
     rating: "4",
     link: "https://git-scm.com/",
   },
+  {
+    name: "Jira",
+    icon: <SiJira />,
+    type: "icon",
+    color: "bg-red-500",
+    rating: "4",
+    link: "https://www.atlassian.com/software/jira",
+  },
+  {
+    name: "Linear",
+    icon: <SiLinear />,
+    type: "icon",
+    color: "bg-red-500",
+    rating: "4",
+    link: "https://linear.app/",
+  },
+  {
+    name: "Notion",
+    icon: <RiNotionFill />,
+    type: "icon",
+    color: "bg-red-500",
+    rating: "4",
+    link: "https://www.notion.com/",
+  },
 ];
 
 const experience = [
@@ -309,8 +335,8 @@ const portfolioItems = [
     title: "ChatWell AI",
     description:
       "This project works to record the thought and transcribe it. Then all thoughts within a login session combine together and generate a story in text and audio format.",
-    action: "See More",
-    link: "https://app.writeoutloud.app/",
+    // action: "See More",
+    // link: "https://app.writeoutloud.app/",
     projectData: {
       name: "Chatwell AI",
       tech: [
@@ -337,8 +363,8 @@ const portfolioItems = [
     title: "Kaboodle",
     description:
       "It generates four different responses to a given prompt. It also has the functionality to change the tone of response for each LLM.",
-    action: "See More",
-    link: "https://www.kaboodleai.com",
+    // action: "See More",
+    // link: "https://www.kaboodleai.com",
     projectData: {
       name: "Kaboodle AI",
       tech: [
@@ -368,7 +394,8 @@ const portfolioItems = [
     description:
       "It analyze the uploaded resumes and result in the score according to our requirement.",
     action: "See More",
-    link: "http://191.101.232.33:5173/",
+    link: "https://engage-ai.tech/",
+    // link: "https://recruitai.engage-ai.tech/login",
     projectData: {
       name: "Engage AI",
       tech: ["ReactJS", "Redux Toolkit", "Tailwind CSS"],
