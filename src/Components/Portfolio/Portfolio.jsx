@@ -1,10 +1,14 @@
 /* eslint-disable react/prop-types */
 
-import { portfolioItems } from "../../constant/portfolioConstant";
+import userProfile from "../../constant/constant";
 import Heading from "../../SharedComponent/Heading/Heading";
 import { handleNavigate } from "../../utils";
 
 const PortfolioGrid = () => {
+  const { portfolioItems } = userProfile;
+
+  if (!portfolioItems || portfolioItems.length === 0) return <></>;
+
   return (
     <div id="Portfolio" className=" text-white min-h-screen p-8">
       <Heading text="Portfolio" borderHeight={"h-9"} />
@@ -77,13 +81,21 @@ const ProjectImageDetail = (props) => {
   const { item } = props;
   return (
     <div className="relative group overflow-hidden rounded-lg lg:col-span-2">
-      <img
-        src={item.image}
-        alt={item.alt}
-        className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-      />
+      {item.image ? (
+        <img
+          src={item.image}
+          alt={item.alt}
+          className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+        />
+      ) : (
+        <div className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110 bg-blue-400"></div>
+      )}
       {item.title && (
-        <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div
+          className={`absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-center p-4 transition-opacity duration-300 ${
+            item.image && "opacity-0 group-hover:opacity-100"
+          }`}
+        >
           <h3 className="text-xl font-bold mb-2">{item.title}</h3>
           <p className="text-sm mb-4">{item.description}</p>
           {item.action && (

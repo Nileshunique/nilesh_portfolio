@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Heading from "../../SharedComponent/Heading/Heading";
+import userProfile from "../../constant/constant";
 
 function DevToBlogFeed() {
+  const { devBlogProfileLink } = userProfile;
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://dev.to/api/articles?username=gyantocode")
+    fetch(devBlogProfileLink)
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);
