@@ -35,7 +35,7 @@ const typeWriterTexts = [
 ];
 const mainJobRole = "Full Stack Developer";
 const description =
-  "I’m a passionate and detail-oriented Front-End Developer with over 3 years of experience building responsive, accessible, and SEO-optimized web interfaces. I specialize in modern front-end technologies including ReactJS, NextJS, NodeJS, ExpressJS and MongoDB.";
+  "I’m a passionate and detail-oriented Front-End Developer with over 3+ years of experience building responsive, accessible, and SEO-optimized web interfaces. I specialize in modern front-end technologies including ReactJS, NextJS, NodeJS, ExpressJS and MongoDB.";
 const aboutDescription = `with a passion for transforming ideas into dynamic web applications. Proficient in both front-end technologies like ReactJS and back-end frameworks such as Node.js, I focus on creating seamless user experiences. With a strong problem-solving mindset and a commitment to continuous learning, I thrive on collaboration and am always eager to tackle new challenges.`;
 
 const personalDetail = [

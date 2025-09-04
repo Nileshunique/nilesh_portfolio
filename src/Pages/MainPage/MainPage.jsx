@@ -1,6 +1,6 @@
 import About from "../../Components/About/About";
 import DevToBlogFeed from "../../Components/Blogs/Blogs";
-// import ContactForm from "../../Components/ContactUs/ContactForm";
+import ContactForm from "../../Components/ContactUs/ContactForm";
 import ContactMe from "../../Components/ContactUs/ContactUs";
 import Experience from "../../Components/Experience/Experience";
 import DevInfo from "../../Components/Info/DevInfo";
@@ -14,8 +14,8 @@ function MainPage() {
       <Experience />
       <PortfolioGrid />
       <DevToBlogFeed />
-      {/* <ContactForm /> */}
-      <ContactMe />
+      <ContactForm />
+      {/* <ContactMe /> */}
     </div>
   );
 }

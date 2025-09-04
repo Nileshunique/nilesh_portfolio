@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { handleCall, handleOpenMail } from "../../utils";
+import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     subject: "",
     description: "",
@@ -22,7 +26,12 @@ function ContactForm() {
     setStatus("");
 
     // Validate form
-    if (!formData.email || !formData.subject || !formData.description) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.subject ||
+      !formData.description
+    ) {
       setStatus("Please fill in all fields");
       setIsLoading(false);
       return;
@@ -37,13 +46,38 @@ function ContactForm() {
     }
 
     try {
-      // Simulate email sending (replace with actual EmailJS implementation)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // EmailJS configuration
+      const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+      const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+      // Check if EmailJS is configured
+      if (!serviceId || !templateId || !publicKey) {
+        setStatus(
+          "Email service is not configured. Please contact the administrator."
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      // Prepare template parameters
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.description,
+        name: formData.name,
+        email: formData.email,
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
       setStatus("Message sent successfully! I'll get back to you soon.");
-      setFormData({ email: "", subject: "", description: "" });
+      setFormData({ name: "", email: "", subject: "", description: "" });
     } catch (error) {
-      setStatus("Failed to send message. Please try again.");
+      console.error("EmailJS Error:", error);
+      setStatus("Failed to send message. Please try again later.");
     } finally {
       setIsLoading(false);
     }
@@ -62,10 +96,72 @@ function ContactForm() {
           </p>
         </div>
 
+        {/* Quick Contact Options */}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-white mb-4 text-center">
+            Quick Contact
+          </h2>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <div
+              onClick={handleOpenMail}
+              className="group cursor-pointer flex items-center bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-amber-500 hover:to-yellow-500 p-4 rounded-xl min-w-max sm:w-auto justify-center gap-3 transition-all duration-300 transform hover:scale-105 hover:shadow-lg border border-zinc-600 hover:border-amber-400"
+            >
+              <FaEnvelope className="text-xl text-amber-400 group-hover:text-black transition-colors duration-300" />
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-400 group-hover:text-black/70 transition-colors duration-300">
+                  Email
+                </span>
+                <span className="text-white group-hover:text-black font-medium transition-colors duration-300">
+                  nilesh.document1@gmail.com
+                </span>
+              </div>
+            </div>
+            <div
+              onClick={handleCall}
+              className="group cursor-pointer flex items-center bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-amber-500 hover:to-yellow-500 p-4 rounded-xl min-w-max sm:w-auto justify-center gap-3 transition-all duration-300 transform hover:scale-105 hover:shadow-lg border border-zinc-600 hover:border-amber-400"
+            >
+              <FaPhoneAlt className="text-xl text-amber-400 group-hover:text-black transition-colors duration-300" />
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-400 group-hover:text-black/70 transition-colors duration-300">
+                  Phone
+                </span>
+                <span className="text-white group-hover:text-black font-medium transition-colors duration-300">
+                  (+91) 9911148122
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="text-center mt-4">
+            <p className="text-gray-500 text-sm">
+              Or fill out the form below for detailed inquiries
+            </p>
+          </div>
+        </div>
+
         {/* Contact Form */}
         <div className="bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-800 overflow-hidden">
-          <div className="p-8">
+          <form onSubmit={handleSubmit} className="p-8">
             <div className="space-y-6">
+              {/* Name Field */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-semibold text-amber-400 mb-2"
+                >
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Your full name"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200"
+                  required
+                />
+              </div>
+
               {/* Email Field */}
               <div>
                 <label
@@ -80,7 +176,7 @@ function ContactForm() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="your.email@example.com"
+                  placeholder="nilesh.document1@gmail.com"
                   className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200"
                   required
                 />
@@ -176,60 +272,21 @@ function ContactForm() {
                 )}
               </button>
             </div>
+          </form>
 
-            {/* Status Message */}
-            {status && (
-              <div
-                className={`mt-6 p-4 rounded-lg ${
-                  status.includes("successfully")
-                    ? "bg-green-800 border border-green-600 text-green-200"
-                    : "bg-red-800 border border-red-600 text-red-200"
-                }`}
-              >
-                <div className="flex items-center">
-                  {status.includes("successfully") ? (
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  )}
-                  {status}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Footer */}
-          <div className="bg-zinc-800 bg-opacity-50 px-8 py-4 border-t border-zinc-700">
-            <div className="flex items-center justify-between text-sm text-gray-500">
-              <span>Your information is secure and never shared</span>
-              <div className="flex items-center space-x-4">
-                <span className="flex items-center">
+          {/* Status Message */}
+          {status && (
+            <div
+              className={`mt-6 p-4 rounded-lg ${
+                status.includes("successfully")
+                  ? "bg-green-800 border border-green-600 text-green-200"
+                  : "bg-red-800 border border-red-600 text-red-200"
+              }`}
+            >
+              <div className="flex items-center">
+                {status.includes("successfully") ? (
                   <svg
-                    className="w-4 h-4 mr-1 text-amber-400"
+                    className="w-5 h-5 mr-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -238,58 +295,52 @@ function ContactForm() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  Encrypted
-                </span>
+                ) : (
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                )}
+                {status}
               </div>
             </div>
-          </div>
+          )}
         </div>
 
-        {/* Additional Contact Info */}
-        <div className="mt-8 text-center">
-          <p className="text-gray-500 mb-4">Or reach out directly:</p>
-          <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <a
-              href="mailto:your.email@example.com"
-              className="flex items-center text-amber-400 hover:text-amber-300 transition-colors"
-            >
-              <svg
-                className="w-4 h-4 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-              your.email@example.com
-            </a>
-            <a
-              href="tel:+1234567890"
-              className="flex items-center text-amber-400 hover:text-amber-300 transition-colors"
-            >
-              <svg
-                className="w-4 h-4 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                />
-              </svg>
-              +1 (234) 567-890
-            </a>
+        {/* Footer */}
+        <div className="bg-zinc-800 bg-opacity-50 px-8 py-4 border-t border-zinc-700">
+          <div className="flex items-center justify-between text-sm text-gray-500">
+            <span>Your information is secure and never shared</span>
+            <div className="flex items-center space-x-4">
+              <span className="flex items-center">
+                <svg
+                  className="w-4 h-4 mr-1 text-amber-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+                Encrypted
+              </span>
+            </div>
           </div>
         </div>
       </div>
