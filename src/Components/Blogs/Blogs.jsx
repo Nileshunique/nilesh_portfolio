@@ -18,7 +18,7 @@ function DevToBlogFeed() {
         console.error("Error fetching articles:", err);
         setLoading(false);
       });
-  }, []);
+  }, [devBlogProfileLink]);
 
   if (loading) {
     return (

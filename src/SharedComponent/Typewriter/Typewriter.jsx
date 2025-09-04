@@ -29,7 +29,7 @@ const Typewriter = ({
     } else {
       setTimeout(() => setIsDeleting(true), PAUSE_BETWEEN_TEXTS);
     }
-  }, [currentTextIndex, displayText, isDeleting, texts]);
+  }, [currentTextIndex, displayText, isDeleting, texts, PAUSE_BETWEEN_TEXTS]);
 
   useEffect(() => {
     const timer = setTimeout(
@@ -37,7 +37,7 @@ const Typewriter = ({
       isDeleting ? DELETING_SPEED : TYPING_SPEED
     );
     return () => clearTimeout(timer);
-  }, [typeText, isDeleting]);
+  }, [typeText, isDeleting, DELETING_SPEED, TYPING_SPEED]);
 
   useEffect(() => {
     const cursorTimer = setTimeout(

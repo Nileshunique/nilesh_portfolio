@@ -4,7 +4,6 @@ import { Menu, X } from "lucide-react";
 import Logo from "./../../assets/images/nkLogo.png";
 import { scrollToSection } from "../../utils";
 import resume from "./../../assets/Resume/Nilesh_Resume.pdf";
-import { Link } from "react-router-dom";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

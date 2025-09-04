@@ -2,7 +2,7 @@ import userProfile from "../../constant/constant";
 import Heading from "../../SharedComponent/Heading/Heading";
 
 const Experience = () => {
-  const { achievements, education, experience } = userProfile;
+  const { education, experience } = userProfile;
 
   return (
     <section>
