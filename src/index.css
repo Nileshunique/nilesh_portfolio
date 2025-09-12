@@ -15,4 +15,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Hide scrollbar across browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+}
+
+:root::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Heading from "../../SharedComponent/Heading/Heading";
 import userProfile from "../../constant/constant";
 
 function DevToBlogFeed() {
-  const { devBlogProfileLink } = userProfile;
-  const [posts, setPosts] = useState([]);
+  const { devBlogProfileLink, blogs } = userProfile;
+  const [posts, setPosts] = useState(blogs || []);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,34 +24,91 @@ function DevToBlogFeed() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-amber-400 text-xl">Loading articles...</div>
+        <motion.div
+          className="text-amber-400 text-xl"
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+        >
+          Loading articles...
+        </motion.div>
       </div>
     );
   }
+
+  // Animation Variants
+  const cardVariants = {
+    hidden: { opacity: 1, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const contentParent = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    },
+  };
+
+  const contentItem = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
 
   return (
     <div id="Blogs" className=" text-white min-h-screen p-8">
       <Heading text="My Latest Blog" borderHeight={"h-9"} />
 
       <div className="container mx-auto">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <motion.div
+          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.25 } },
+          }}
+        >
           {posts.map((post) => (
-            <div
+            <motion.div
               key={post.id}
-              className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-105 border border-gray-700"
+              className="bg-gray-800 rounded-lg overflow-hidden shadow-lg border border-gray-700"
+              variants={cardVariants}
+              whileHover={{
+                scale: 1.03,
+                boxShadow: "0px 8px 20px rgba(0,0,0,0.5)",
+              }}
             >
+              {/* Image */}
               {(post.cover_image || post.social_image) && (
-                <div className="aspect-video overflow-hidden">
+                <motion.div
+                  className="aspect-video overflow-hidden"
+                  initial={{ scale: 1.1, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                >
                   <img
                     src={post.cover_image || post.social_image}
                     alt={post.title}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover"
                   />
-                </div>
+                </motion.div>
               )}
 
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-amber-400 hover:text-amber-300 transition-colors">
+              {/* Inner Content with staggered animation */}
+              <motion.div
+                className="p-6 flex flex-col gap-3"
+                variants={contentParent}
+              >
+                {/* Title */}
+                <motion.h3
+                  className="text-xl font-semibold text-amber-400 hover:text-amber-300 transition-colors"
+                  variants={contentItem}
+                >
                   <a
                     href={post.url}
                     target="_blank"
@@ -59,13 +117,21 @@ function DevToBlogFeed() {
                   >
                     {post.title}
                   </a>
-                </h3>
+                </motion.h3>
 
-                <p className="text-gray-300 mb-4 line-clamp-3 leading-relaxed">
+                {/* Description */}
+                <motion.p
+                  className="text-gray-300 line-clamp-3 leading-relaxed"
+                  variants={contentItem}
+                >
                   {post.description}
-                </p>
+                </motion.p>
 
-                <div className="space-y-2 text-sm text-gray-400">
+                {/* Metadata */}
+                <motion.div
+                  className="space-y-2 text-sm text-gray-400"
+                  variants={contentItem}
+                >
                   <p className="flex items-center gap-2">
                     <span className="text-amber-400 font-semibold">
                       📅 Published:
@@ -74,32 +140,44 @@ function DevToBlogFeed() {
                   </p>
 
                   {post.tag_list && post.tag_list.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-3">
+                    <motion.div
+                      className="flex flex-wrap gap-1 mt-3"
+                      variants={contentParent}
+                    >
                       {post.tag_list.map((tag, index) => (
-                        <span
+                        <motion.span
                           key={index}
                           className="px-2 py-1 bg-amber-400 bg-opacity-20 text-amber-400 text-xs rounded-full border border-amber-400 border-opacity-30"
+                          variants={contentItem}
                         >
                           #{tag}
-                        </span>
+                        </motion.span>
                       ))}
-                    </div>
+                    </motion.div>
                   )}
-                </div>
+                </motion.div>
 
-                <div className="mt-4 pt-4 border-t border-gray-700 flex items-center justify-between text-xs text-gray-500">
+                {/* Footer */}
+                <motion.div
+                  className="mt-4 pt-4 border-t border-gray-700 flex items-center justify-between text-xs text-gray-500"
+                  variants={contentItem}
+                >
                   <span>💖 {post.public_reactions_count} reactions</span>
                   <span>💬 {post.comments_count} comments</span>
-                </div>
-              </div>
-            </div>
+                </motion.div>
+              </motion.div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {posts.length === 0 && (
-          <div className="text-center text-gray-400 mt-12">
+          <motion.div
+            className="text-center text-gray-400 mt-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
             <p className="text-xl">No articles found</p>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>
