@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { handleCall, handleOpenMail } from "../../utils";
 import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -25,7 +26,6 @@ function ContactForm() {
     setIsLoading(true);
     setStatus("");
 
-    // Validate form
     if (
       !formData.name ||
       !formData.email ||
@@ -37,7 +37,6 @@ function ContactForm() {
       return;
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setStatus("Please enter a valid email address");
@@ -46,31 +45,23 @@ function ContactForm() {
     }
 
     try {
-      // EmailJS configuration
       const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
       const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
       const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
-      // Check if EmailJS is configured
       if (!serviceId || !templateId || !publicKey) {
-        setStatus(
-          "Email service is not configured. Please contact the administrator."
-        );
+        setStatus("Email service is not configured. Please contact admin.");
         setIsLoading(false);
         return;
       }
 
-      // Prepare template parameters
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
         subject: formData.subject,
         message: formData.description,
-        name: formData.name,
-        email: formData.email,
       };
 
-      // Send email using EmailJS
       await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
       setStatus("Message sent successfully! I'll get back to you soon.");
@@ -83,67 +74,128 @@ function ContactForm() {
     }
   };
 
+  // Variants for staggered animations
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 },
+    },
+  };
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl">
+    <motion.div
+      className="min-h-screen bg-black flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <motion.div
+        className="w-full max-w-2xl"
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent mb-4">
+        <motion.div
+          className="text-center mb-8"
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1
+            id="ContactMe"
+            className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent mb-4"
+          >
             Get In Touch
           </h1>
           <p className="text-gray-500 text-lg">
             Have a question or want to work together? I'd love to hear from you.
           </p>
-        </div>
+        </motion.div>
 
         {/* Quick Contact Options */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4 text-center">
+        <motion.div
+          className="mb-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          <motion.h2
+            className="text-xl font-semibold text-white mb-4 text-center"
+            variants={itemVariants}
+          >
             Quick Contact
-          </h2>
+          </motion.h2>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <div
+            {/* Email */}
+            <motion.div
               onClick={handleOpenMail}
-              className="group cursor-pointer flex items-center bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-amber-500 hover:to-yellow-500 p-4 rounded-xl min-w-max sm:w-auto justify-center gap-3 transition-all duration-300 transform hover:scale-105 hover:shadow-lg border border-zinc-600 hover:border-amber-400"
+              className="group cursor-pointer flex items-center bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-amber-500 hover:to-yellow-500 p-4 rounded-xl min-w-max sm:w-auto justify-center gap-3 border border-zinc-600 hover:border-amber-400 shadow-md"
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <FaEnvelope className="text-xl text-amber-400 group-hover:text-black transition-colors duration-300" />
               <div className="flex flex-col">
-                <span className="text-xs text-gray-400 group-hover:text-black/70 transition-colors duration-300">
+                <span className="text-xs text-gray-400 group-hover:text-black/70">
                   Email
                 </span>
-                <span className="text-white group-hover:text-black font-medium transition-colors duration-300">
+                <span className="text-white group-hover:text-black font-medium">
                   nilesh.document1@gmail.com
                 </span>
               </div>
-            </div>
-            <div
+            </motion.div>
+            {/* Phone */}
+            <motion.div
               onClick={handleCall}
-              className="group cursor-pointer flex items-center bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-amber-500 hover:to-yellow-500 p-4 rounded-xl min-w-max sm:w-auto justify-center gap-3 transition-all duration-300 transform hover:scale-105 hover:shadow-lg border border-zinc-600 hover:border-amber-400"
+              className="group cursor-pointer flex items-center bg-gradient-to-r from-zinc-800 to-zinc-700 hover:from-amber-500 hover:to-yellow-500 p-4 rounded-xl min-w-max sm:w-auto justify-center gap-3 border border-zinc-600 hover:border-amber-400 shadow-md"
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <FaPhoneAlt className="text-xl text-amber-400 group-hover:text-black transition-colors duration-300" />
               <div className="flex flex-col">
-                <span className="text-xs text-gray-400 group-hover:text-black/70 transition-colors duration-300">
+                <span className="text-xs text-gray-400 group-hover:text-black/70">
                   Phone
                 </span>
-                <span className="text-white group-hover:text-black font-medium transition-colors duration-300">
+                <span className="text-white group-hover:text-black font-medium">
                   (+91) 9911148122
                 </span>
               </div>
-            </div>
+            </motion.div>
           </div>
-          <div className="text-center mt-4">
+          <motion.div className="text-center mt-4" variants={itemVariants}>
             <p className="text-gray-500 text-sm">
               Or fill out the form below for detailed inquiries
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Contact Form */}
-        <div className="bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-800 overflow-hidden">
-          <form onSubmit={handleSubmit} className="p-8">
+        <motion.div
+          className="bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-800 overflow-hidden"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <motion.form
+            onSubmit={handleSubmit}
+            className="p-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
             <div className="space-y-6">
               {/* Name Field */}
-              <div>
+              <motion.div variants={itemVariants}>
                 <label
                   htmlFor="name"
                   className="block text-sm font-semibold text-amber-400 mb-2"
@@ -157,13 +209,13 @@ function ContactForm() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Your full name"
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-400"
                   required
                 />
-              </div>
+              </motion.div>
 
               {/* Email Field */}
-              <div>
+              <motion.div variants={itemVariants}>
                 <label
                   htmlFor="email"
                   className="block text-sm font-semibold text-amber-400 mb-2"
@@ -177,13 +229,13 @@ function ContactForm() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="nilesh.document1@gmail.com"
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-400"
                   required
                 />
-              </div>
+              </motion.div>
 
               {/* Subject Field */}
-              <div>
+              <motion.div variants={itemVariants}>
                 <label
                   htmlFor="subject"
                   className="block text-sm font-semibold text-amber-400 mb-2"
@@ -197,13 +249,13 @@ function ContactForm() {
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder="What's this about?"
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-400"
                   required
                 />
-              </div>
+              </motion.div>
 
               {/* Description Field */}
-              <div>
+              <motion.div variants={itemVariants}>
                 <label
                   htmlFor="description"
                   className="block text-sm font-semibold text-amber-400 mb-2"
@@ -215,112 +267,52 @@ function ContactForm() {
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
-                  placeholder="Tell me more about your project, question, or how I can help you..."
+                  placeholder="Tell me more about your project..."
                   rows="6"
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200 resize-vertical"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-amber-400 resize-vertical"
                   required
                 />
-              </div>
+              </motion.div>
 
               {/* Submit Button */}
-              <button
+              <motion.button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-amber-400 to-yellow-500 text-black font-bold py-4 px-6 rounded-lg hover:from-amber-500 hover:to-yellow-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95"
+                className="w-full bg-gradient-to-r from-amber-400 to-yellow-500 text-black font-bold py-4 px-6 rounded-lg shadow-md hover:from-amber-500 hover:to-yellow-600 focus:ring-2 focus:ring-amber-400 disabled:opacity-50"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                variants={itemVariants}
               >
-                {isLoading ? (
-                  <div className="flex items-center justify-center">
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Sending Message...
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                      />
-                    </svg>
-                    Send Message
-                  </div>
-                )}
-              </button>
+                {isLoading ? "Sending..." : "Send Message"}
+              </motion.button>
             </div>
-          </form>
+          </motion.form>
 
           {/* Status Message */}
           {status && (
-            <div
+            <motion.div
               className={`mt-6 p-4 rounded-lg ${
                 status.includes("successfully")
                   ? "bg-green-800 border border-green-600 text-green-200"
                   : "bg-red-800 border border-red-600 text-red-200"
               }`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
             >
-              <div className="flex items-center">
-                {status.includes("successfully") ? (
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                )}
-                {status}
-              </div>
-            </div>
+              {status}
+            </motion.div>
           )}
-        </div>
+        </motion.div>
 
         {/* Footer */}
-        <div className="bg-zinc-800 bg-opacity-50 px-8 py-4 border-t border-zinc-700">
+        <motion.div
+          className="bg-zinc-800 bg-opacity-50 px-8 py-4 border-t border-zinc-700 mt-6 rounded-lg"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <div className="flex items-center justify-between text-sm text-gray-500">
             <span>Your information is secure and never shared</span>
             <div className="flex items-center space-x-4">
@@ -342,9 +334,9 @@ function ContactForm() {
               </span>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
 

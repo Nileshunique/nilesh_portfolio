@@ -24,6 +24,7 @@ import {
 import { BsGrid3X3Gap } from "react-icons/bs";
 import { BiLogoJquery } from "react-icons/bi";
 import { RiNextjsLine, RiNotionFill } from "react-icons/ri";
+import { Blogs } from "./blogs";
 
 const profileName = "Nilesh Kumar";
 const typeWriterTexts = [
@@ -238,18 +239,7 @@ const experience = [
     title: "MERN Stack Developer",
     company: "Oodles Technology",
     duration: "Since May 2022",
-    description: `I'm an experienced Frontend Developer with expertise in
-    ReactJS and a deep understanding of the latest technologies. I
-    have practical experience working with tools and frameworks such
-    as JavaScript, Material UI, React-Bootstrap, and Redux-Toolkit.
-    I have made significant contributions to projects such as
-    Heartbeat Design, Plant Tagging, ReBuilding, EngageAI and
-    KaboodleAI by utilizing my expertise to develop innovative
-    solutions that meet project requirements. I ensures that the
-    frontend of the projects I works on is intuitive and
-    user-friendly. I'm committed to enhancing my skills and
-    knowledge by staying up-to-date with industry trends to deliver
-    the best possible results.`,
+    description: `I'm an experienced Frontend Developer with expertise in ReactJS and a deep understanding of the latest technologies. I have practical experience working with tools and frameworks such as JavaScript, Material UI, React-Bootstrap, and Redux-Toolkit. I have made significant contributions to projects such as Heartbeat Design, Plant Tagging, ReBuilding, EngageAI and KaboodleAI by utilizing my expertise to develop innovative solutions that meet project requirements. I ensures that the frontend of the projects I works on is intuitive and user-friendly. I'm committed to enhancing my skills and knowledge by staying up-to-date with industry trends to deliver the best possible results.`,
   },
 ];
 
@@ -490,6 +480,7 @@ const userProfile = {
   achievements,
   portfolioItems,
   devBlogProfileLink,
+  blogs: Blogs
 };
 
 export default userProfile;
