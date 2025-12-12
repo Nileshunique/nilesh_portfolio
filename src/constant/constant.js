@@ -9,6 +9,10 @@ import story_lego from "./../assets/images/projects/story_lego.jpeg";
 import futureagi from "./../assets/images/projects/futureagi.png";
 import miseit from "./../assets/images/projects/miseit.png";
 import responsive from "./../assets/images/icons/responsive.svg";
+import ExtraMileAward from "./../assets/certificates/Extra_Mile_Award_Q01_2025.png";
+import UdemyWebDev from "./../assets/certificates/Web_Development_Udemy_course_compeletion_2022.png";
+import NamasteDevNodeJS from "./../assets/certificates/Nameste_dev_nodeJS_compeletion.png";
+import ScalerResponsive from "./../assets/certificates/Responsive_Web_Design_Workshop_2022.png";
 import frontEnd from "./../assets/images/icons/front-end.svg";
 import backend from "./../assets/images/icons/backend.svg";
 import api from "./../assets/images/icons/api.svg";
@@ -265,6 +269,41 @@ const achievements = [
   },
 ];
 
+const certificates = [
+  {
+    title: "Certificate of Appreciation – Extra Mile Award",
+    institution: "Oodles Technology",
+    duration: "Q1 2025",
+    description:
+      "Recognized for exceptional dedication, outstanding performance, and consistently going above and beyond in delivering high-quality results.",
+    image: ExtraMileAward,
+  },
+  {
+    title: "The Complete 2022 Web Development Bootcamp",
+    institution: "Udemy",
+    duration: "2022",
+    description:
+      "Completed comprehensive web development bootcamp covering modern web technologies, frameworks, and best practices for building full-stack applications.",
+    image: UdemyWebDev,
+  },
+  {
+    title: "Certificate of Completion – Node.js",
+    institution: "Namaste Dev",
+    duration: "2022",
+    description:
+      "Successfully completed Node.js course covering server-side JavaScript, Express.js, REST APIs, and backend development fundamentals.",
+    image: NamasteDevNodeJS,
+  },
+  {
+    title: "Responsive Web Page Design Workshop",
+    institution: "Scaler Academy",
+    duration: "2022",
+    description:
+      "Completed workshop on responsive web design principles, CSS Grid, Flexbox, and mobile-first development approaches.",
+    image: ScalerResponsive,
+  },
+];
+
 const portfolioItems = [
   {
     "image": miseit,
@@ -508,6 +547,7 @@ const userProfile = {
   experience,
   education,
   achievements,
+  certificates,
   portfolioItems,
   devBlogProfileLink,
   blogs: Blogs

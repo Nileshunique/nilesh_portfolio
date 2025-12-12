@@ -12,6 +12,7 @@ function Header() {
   const links = [
     { id: "About", label: "About" },
     { id: "Experience", label: "Experience" },
+    { id: "Certificates", label: "Certificates" },
     { id: "Portfolio", label: "Portfolio" },
     { id: "Blogs", label: "Blogs" },
     { id: "ContactMe", label: "Contact" },

@@ -3,6 +3,7 @@ import DevToBlogFeed from "../../Components/Blogs/Blogs";
 import ContactForm from "../../Components/ContactUs/ContactForm";
 // import ContactMe from "../../Components/ContactUs/ContactUs";
 import Experience from "../../Components/Experience/Experience";
+import Certificates from "../../Components/Certificates/Certificates";
 import DevInfo from "../../Components/Info/DevInfo";
 import PortfolioGrid from "../../Components/Portfolio/Portfolio";
 
@@ -12,6 +13,7 @@ function MainPage() {
       <DevInfo />
       <About />
       <Experience />
+      <Certificates />
       <PortfolioGrid />
       <DevToBlogFeed />
       <ContactForm />
